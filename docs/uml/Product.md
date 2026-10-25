@@ -1,5 +1,5 @@
 
-# Product UML Class Diagram
+# Product Hierarchy UML Class Diagram
 
 ```mermaid
 classDiagram
@@ -17,25 +17,24 @@ classDiagram
         +setPrice(double price) void
     }
 
-    class ProductService {
-        -List~Product~ products
-        -Long nextId
-        +getAllProducts() List~Product~
-        +getProductById(Long id) Optional~Product~
-        +addProduct(Product product) Product
-        +deleteProduct(Long id) void
-        +findByName(String name) List~Product~
+    class DigitalProduct {
+        -String downloadUrl
+        -double fileSizeMB
+        +DigitalProduct()
+        +DigitalProduct(Long id, String name, double price, String downloadUrl, double fileSizeMB)
+        +getDownloadUrl() String
+        +getFileSizeMB() double
     }
 
-    class ProductController {
-        -ProductService productService
-        +getAllProducts() List~Product~
-        +getProductById(Long id) Product
-        +addProduct(Product product) Product
-        +deleteProduct(Long id) void
-        +search(String name) List~Product~
+    class PhysicalProduct {
+        -double weightKg
+        -String dimensions
+        +PhysicalProduct()
+        +PhysicalProduct(Long id, String name, double price, double weightKg, String dimensions)
+        +getWeightKg() double
+        +getDimensions() String
     }
 
-    ProductController ..> ProductService : uses
-    ProductService --> Product : manages
+    Product <|-- DigitalProduct
+    Product <|-- PhysicalProduct
 ```
